@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>NUMB</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Globalni stilovi */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif; /* Moderniji font za tekst */
+            background: url('combined_background.jpg') center center no-repeat fixed; /* Statična pozadina */
+            background-size: cover; /* Pokrij cijeli zaslon */
+            background-color: #111;
+            color: #f1f1f1;
+            line-height: 1.8; /* Povećan line-height za bolju čitljivost */
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9); /* Pojačana sjena za bolju čitljivost na pozadini */
+        }
+
+        /* Hero sekcija - početni zaslon */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.3); /* Vrlo blagi, gotovo neprimjetan sloj za kontrast naslova */
+        }
+
+        .hero h1 {
+            font-family: 'Cinzel Decorative', serif; /* Starinski font za naslov */
+            font-size: 5em;
+            font-weight: 700;
+            color: #ff0000; /* Crvena boja */
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px #ff0000, 0 0 25px #ff0000, 0 0 40px #ff0000; /* Još jača sjena za naslov */
+        }
+
+        .hero p {
+            font-size: 1.6em;
+            max-width: 900px;
+            color: #ffffff;
+            background-color: transparent; /* Bez pozadine */
+            padding: 10px;
+        }
+
+        /* Sekcija o autoru */
+        .author-section {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 40px;
+            color: #d1d1d1;
+            font-size: 1.2em;
+            background-color: transparent; /* Uklonjena pozadina */
+        }
+
+        .author-section p {
+            margin-bottom: 15px;
+        }
+
+        /* Opće sekcije za sadržaj (NUMB PART 1, PART 2) */
+        .section {
+            max-width: 900px;
+            margin: 80px auto;
+            padding: 0 40px;
+            background-color: transparent; /* Uklonjena pozadina */
+        }
+
+        .section h2 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 2.8em;
+            color: #ff0000;
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Linija ispod naslova ostaje */
+            text-shadow: 0 0 10px #ff0000; /* Sjena za naslove sekcija */
+        }
+
+        /* Tekst je uvijek vidljiv, nema toggle-a */
+        .toggle-content {
+            display: block; /* Uvijek vidljivo */
+            margin-top: 20px;
+            padding: 30px 0;
+            color: #f1f1f1;
+            font-size: 1.15em;
+            line-height: 1.9;
+        }
+
+        .toggle-content p {
+            margin-bottom: 1em;
+        }
+
+        .section small {
+            color: #b1b1b1;
+            display: block;
+            margin-top: 5px;
+            text-align: center;
+            font-style: italic;
+            padding-bottom: 20px;
+        }
+
+        /* Gumbovi za Like/Share */
+        .share-buttons {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: rgba(0, 0, 0, 0.5); /* Mala pozadina za gumbe radi vidljivosti */
+            padding-bottom: 20px;
+            border-radius: 8px;
+            margin-bottom: 40px; /* Razmak od sljedeće sekcije */
+        }
+
+        .share-buttons button {
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 0 10px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .share-buttons button:hover {
+            background-color: #e60000;
+            transform: translateY(-2px);
+        }
+
+        .share-buttons a {
+            color: white;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #007bff; /* Plava za Facebook */
+            padding: 12px 25px;
+            border-radius: 5px;
+            margin: 0 10px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .share-buttons a.twitter { background-color: #1DA1F2; } /* Twitter plava */
+        .share-buttons a.linkedin { background-color: #0A66C2; } /* LinkedIn plava */
+
+        .share-buttons a:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        /* Sekcija za komentare */
+        .comments-section {
+            max-width: 900px;
+            margin: 80px auto;
+            padding: 40px;
+            background-color: rgba(0, 0, 0, 0.7); /* Ovdje ipak ostavljamo prozirnu pozadinu za formu komentara radi funkcionalnosti */
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .comments-section h2 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 2.2em;
+            color: #ff0000;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        .comment-form textarea {
+            width: 100%;
+            height: 120px;
+            padding: 15px;
+            border: 1px solid #555;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #f1f1f1;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            resize: vertical;
+        }
+
+        .comment-form input[type="text"],
+        .comment-form input[type="email"] {
+            width: calc(50% - 10px);
+            padding: 15px;
+            border: 1px solid #555;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #f1f1f1;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .comment-form input[type="text"] {
+            margin-right: 20px;
+        }
+
+        .comment-form button {
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .comment-form button:hover {
+            background-color: #e60000;
+        }
+
+        .comment-list {
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+        }
+
+        .comment {
+            background-color: rgba(255, 255, 255, 0.05); /* Vrlo blaga pozadina za pojedinačne komentare */
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .comment strong {
+            color: #ff0000;
+            font-size: 1.1em;
+        }
+
+        .comment small {
+            color: #aaa;
+            margin-left: 10px;
+            font-size: 0.9em;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            font-size: 1em;
+            color: #aaa;
+            border-top: 1px solid #333;
+            margin-top: 60px;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        footer a {
+            color: #ff0000;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #ff4444;
+        }
+
+        /* Responsivni dizajn */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3em;
+            }
+
+            .hero p {
+                font-size: 1.1em;
+            }
+
+            .author-section, .section, .comments-section {
+                margin: 40px auto;
+                padding: 20px;
+            }
+
+            .section h2 {
+                font-size: 2em;
+            }
+
+            .toggle-content {
+                font-size: 1em;
+            }
+
+            .comment-form input[type="text"],
+            .comment-form input[type="email"] {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+
+            .share-buttons button, .share-buttons a {
+                display: block;
+                margin: 10px auto;
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <h1>NUMB</h1>
+        <p>Autobiografska ispovijest bez filtra</p>
+    </div>
+
+    <div class="author-section">
+        <p>
+            Autor piše iz tamnijih kutaka stvarnosti, onih koje većina ljudi zaobilazi pogledom — ne zato što ih ne vidi, nego jer ih ne želi osjetiti. Njegova proza nije zamišljena da udovolji, nego da razgrne; nije stvorena da zabavi, nego da ogoli.
+        </p>
+        <p>
+            Iz osobnog iskustva i introspekcije, stvara o onome o čemu mnogi šute: odrastanje bez temelja, borbe s vlastitim demonima, supstance koje ponekad olakšavaju, a ponekad sabotiraju — i o spoznaji koja dolazi kroz bol, lucidnost i brutalnu iskrenost.
+        </p>
+        <p>
+            Njegov rad nije stiliziran – on je sirov, često bolan, ali u tom bolu neprestano pulsira nada.
+            Kao autor, vjeruje da je život najbolji pisac, ali da čovjek mora biti dovoljno hrabar da ga ispiše — i još hrabriji da ga pročita.
+        </p>
+        <p>
+            Autor tekstova poput “Proces počinje” (numb) i drugih koji su tek u nastajanju, koristi pisanje kao terapiju, kao oružje, kao osobnu revoluciju. Ne piše priče – on ih preživljava, a zatim ih isporučuje čitatelju bez filtera, bez zadrške.
+        </p>
+        <p>
+            Ako tražiš literaturu koja te neće maziti, nego te pogledati ravno u oči — onda si ovdje.
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>📘 NUMB PART 1</h2>
+        <small>“Uzorak autobiografije”</small>
+        <div class="toggle-content" id="numbPart1">
+            <p>Zamisli jedan grad, može to biti bilo koji, bilo gdje.</p>
+            <p>Sad pogledaj kuće i zgrade, parkove, automobile.</p>
+            <p>Sad navuci zastor noći nad grad, blijedo žuti mjesec iza malog prozirnog bijelog oblaka. Ipak, nešto nedostaje.</p>
+            <p>Upali svjetla na svim prozorima, dodaj zvuk tramvaja kojeg vidiš da se gega prazan na tračnicama.</p>
+            <p>Dodaj zvuk psa kako laje i auto alarma u neodređenoj daljni.</p>
+            <p>Svjetla se polako gase, nestaju prvo polako pa sve češće, sve ih manje ima i za tren čitav je grad obasjan samo žutom uličnom rasvjetom, mjesec u gradu ne znači baš puno, sad to jasno vidiš.</p>
+            <p>Sad zatvori oči.</p>
+            <p>Uperi prstom u jedan od tamnih prozora i ako želiš pogledaj kroz taj prozor koji si odabrao nasumično poput karte u starom istrošenom špilu koji ti ulični mađioničar drži pred tobom, odaberi bilo koju kaže i pogodit ću koja je tvoja karta.</p>
+            <p>Isto tako odaberi i prozor i reći ću ti sve što trebaš znati o svijetu iza njega.</p>
+            <p>Vidim prozor koji si odabran.</p>
+            <p>Želiš li prije nego počnemo promijeniti kartu? Jer nisam siguran da je to baš karta koju bi mogao shvatiti. Ali ako ipak želiš nastaviti s njom ……… izvoli.</p>
+            <br> <h3>Numb</h3>
+            <p>Autor: Igor Šajnović</p>
+            <p>Datum: 10. Svibnja 2025.</p>
+
+            <p>Kad bi ova ili bilo koja noć imala zvuk koji svi čuju, to bi bio E-mol. Bio bi to možda Gary Moore, B. B. King sa "Still Got the Blues for You" i "The Thrill Is Gone", ali verzija gdje uz legendarnog Kinga svira i Clapton, nekad je to "Layla" ili "While My Guitar Gently Weeps". To je mol koji često čujem, najčešće noću kad se tamna izmaglica počne prelijevati preko ljepljivog sivila sumraka. Kad mi je svaki zvuk tup i prazan, ali ujedno i grub i oštar, možda misliš kako to nema smisla, u tom slučaju ti možda zavidim, ali prije će biti da ne. Na sve se čovjek navikne. Probaj zamisliti da nosiš neki obični kamenčić u recimo desnom džepu hlača, a sad probaj zamisliti da ga nosiš 45 godina u istom džepu u svim hlačama koje si ikad obukao. Možda u početku smeta, žulja, pomišljaš da ga baciš, ali "sutra ću", "sad moram prvo izvaditi cigare ili novce, a žurim", "sad su novci u tom džepu", "sad si zaboravio na njega", pa ga čuješ kako zvocka dok se sudara sa zipom u džepu, misliš kako si glup, "izgrebat će tako dobar i skup upaljač", "na ništa ne paziš", onda pomisliš. Ali "to će upaljaču dat karaktera", zaključiš i onda ti sijevne pitanje kao da ti je netko opalio šamar, ne filmski savršeni po obrazu da se jasno čuje onaj poznati zvuk koji sam čuo osjeteći ga toliko puta da mu i miris mogu prepoznati. Nije mi to sad ne znam ti ja što, zapravo dok pokušavam ovo objasnit i smiješno je, svi ti padovi od filmskih šamara moralo je biti i komičnih. Jednom sam tako pao od njega da sam se automatski usrao, još zamišljam scenu kako se zbunjeno ustajem sa instant smeđom flekom koja je probila i gaće i hlače i teret stolice u donjem vešu, i kaosa koje se u njemu nalazi i naravno nezaobilazni miris sranja. Zašto ono najviše smrdi i pravi najviše nereda u najnezgodnijim situacijama? Inače se posereš i ni ne osjetiš miris većinom. Ovaj šamar je bio najgore vrste, osjećaj kao da je pogodio ona nezgodna mjesta koja najčešće pogađa: nos, usnu, uho. Taj šamar je bio pitanje zašto ga uopće prebacujem iz hlača u druge hlače? Bio sam premlad, preglup i željan nešto posjedovati po čemu ću biti različit. Je, to je običan kamen, svatko ih može imati koliko hoće, ali tko ga ima u hlačama zapravo? Moj odgovor sada je "dosta njih", ali tada sam sto posto bio siguran da je odgovor "nitko"! A sad probaj zamisliti da jednog dana izgubiš taj kamen, nešto tako nebitno bi ti nedostajalo dok hodaš, vadiš nešto iz džepa, nedostajao bi ti osjećaj da te žulja.</p>
+
+            <p>Ne bi više bio kompletan.</p>
+
+            <p>Moj E-mol je poput takvog kamenčića i glavu gore ako imaš i ti jedan. Moj E-mol najčešće dolazi u gluhoj tišini, kad sam, polomljen i istrošen, po tko zna koji puta pregažen. U tim trenucima nevidljiv čak i samom sebi. Ulovi me nespremnog, bez ikakvog sredstva za samoobranu od boli. A ova je noć tamna poput crnog, jača, galopira uz metalne zvuke davno neispravne vage. Dugo nije bila ove nijanse, dugo nije ovako oslobodila put nečemu što će me, bez imalo dvojbe u mojoj glavi, sažvakati i po ne znam koji puta ispljunuti i ostaviti – samo da bi se prvom prilikom vratio, i bez obzira želio ja to ili ne, pružio ja otpor ili ne, ta želja i otpor većinom mu daju samo još veću moć, učinit će ono za što sam ga i stvorio. Bez obzira što iznova jasno dajem do znanja da to ovaj puta ne želim. Da to nisam nikad želio. Stišćem zube, zarežim. Ne čuje me. I polako napreduje. Uzimam sa staklenog stolića za kavu mali pladanj od nehrđajućeg čelika. Svojom osobnom iskaznicom crtam crtu bijelog u nadi da će mi lažno samopouzdanje, koje mi jedan od mojih najgorih životnih izbora može pružiti, pomoći. U nadi da će me nekim čudom spasiti. Gledam u tu bijelu crtu čarobnih kristala koji na trenutke odbiju od sebe dolutalu svjetlost i zasjaje poput sitnih dijamanata. Palim cigaretu. Metalni zvuk poklopca upaljača zazvoni u polupraznoj prostoriji. Miris benzina dopre do mene. Okrenem točkić koji baca iskru s kremena. Nema plamena. Kresnem ga još jednom. Ništa. Očito je prazan – pomislim. Što me ne sprječava da pokušam opet. I opet. I opet. Svaki neuspjeli pokušaj dodaje svoj doprinos sve lošijem stanju koje polako, ali sigurno raste. U mislima upaljač odmah poistovjetim sa svojim penisom – koji je isto tako svojeglav. Koji me isto tako zna izbaciti iz takta. Koji je neovisan o mojim željama i, naravno, ne doživljava me kao autoritet. To mi izmami smiješak na lice jer sam, naravno, svjestan da bi puno bolje surađivao kad bih ja uzeo nekad u obzir njegove potrebe. Kad bih barem s vremena na vrijeme učinio nešto za njega. Ustajem smiješeći se i napunim upaljač gorivom koje mu je nužno. Sjednem i naravno – prvim pokretom upaljač upali, vatra, veselo zapleše pred cigaretom. Na prljavom parketu pod mojim stopalima bio je stari prljavi izlizani parket koji je smrdio na stotine prljavih bosih nogu ruskih beskućnika. Na njemu, naravno, i moj doprinos je bio izložen i evidentan.</p>
+
+            <p>Možda čak i više nego bi to htio priznat čak ni samom sebi.</p>
+
+            <p>Ali bilo je tu i dobrih stvari u sobi. Kao recimo ova crtica ispred mene, ili onaj bijeli kamen iza nje, i televizor je bio smart (za razliku od mene). Iznad kauča neka izheklana pizdarija, neka izgleda žena na kauču, pod njom plahta kojoj ne znam ni porijeklo, ali mislim je kauč u odnosu na plahtu imao uzbudljiviji seksualni put i život, sigurno to slutim već na prvoj nalazi mrlja na njegovoj zelenoj presvlaci, prljavština i DNK neke vrste vjerovatno su se miješale jedno s drugim u slojevima. Poput prave umjetničke tehnike, ova klimava fotelja na kojoj se spremam šmrknuti ovu crtu, mala je i moram napraviti još jednu normalnu.</p>
+
+            <p>Otrovni i slatkast okus dima pruži mi trenutno zadovoljstvo polako me ubijajući. Duboki udah dima zagrebe mi grlo, prizivajući sjećanje mog prvog susreta s cigaretom. Iskustvo ni malo slično trenutnom, padne mi na pamet reklama za neke cigarete koja je na kraju slala poruku "s cigaretom nisi sam". Na prljavom parketu pod mojim stopalima bio je stari prljavi izlizani parket koji je smrdio na stotine prljavih bosih nogu ruskih beskućnika. Na njemu, naravno, i moj doprinos je bio izložen i evidentan.</p>
+
+            <p>Možda čak i više nego bi to htio priznat čak ni samom sebi.</p>
+
+            <p>Ali bilo je tu i dobrih stvari u sobi. Kao recimo ova crtica ispred mene, ili onaj bijeli kamen iza nje, i televizor je bio smart (za razliku od mene). Iznad kauča neka izheklana pizdarija, neka izgleda žena na kauču, pod njom plahta kojoj ne znam ni porijeklo, ali mislim je kauč u odnosu na plahtu imao uzbudljiviji seksualni put i život, sigurno to slutim već na prvoj nalazi mrlja na njegovoj zelenoj presvlaci, prljavština i DNK neke vrste vjerovatno su se miješale jedno s drugim u slojevima. Poput prave umjetničke tehnike, ova klimava fotelja na kojoj se spremam šmrknuti ovu crtu, mala je i moram napraviti još jednu normalnu.</p>
+
+            <p>Otrovni i slatkast okus dima pruži mi trenutno zadovoljstvo polako me ubijajući. Duboki udah dima zagrebe mi grlo, prizivajući sjećanje mog prvog susreta s cigaretom. Iskustvo ni malo slično trenutnom, padne mi na pamet reklama za neke cigarete koja je na kraju slala poruku "s cigaretom nisi sam".</p>
+
+            <p>Otrovni i slatkast okus dima pruži mi trenutno zadovoljstvo polako me ubijajući. Duboki udah dima zagrebe mi grlo, prizivajući sjećanje mog prvog susreta s cigaretom. Iskustvo ni malo slično trenutnom, padne mi na pamet reklama za neke cigarete koja je na kraju slala poruku "s cigaretom nisi sam". Spoji se s vrhom cigarete, i slatkast okus dima pruži mi trenutno zadovoljstvo polako me ubijajući. Duboki udah dima zagrebe mi grlo, prizivajući sjećanje mog prvog susreta s cigaretom. Iskustvo ni malo slično trenutnom padne mi na pamet reklama za neke cigarete koja je na kraju slala poruku "s cigaretom nisi sam". Imao sam možda sedam ili osam godina. Vraćajući se iz škole, promatrao sam svoje vršnjake u obližnjem parku koji je zapravo bio na školskom zemljištu. Ali ja se tamo nisam nikad igrao. Zapravo, često sam samo stajao negdje u sjeni vrba čije su se tanke grane često spuštale do zemlje, stvarajući prirodnu kamuflažu za nekoga poput mene i hladovinu za nekoga poput nekog drugog. Ovaj put se nisam zadržavao. Požurio sam kući. Kad kažem "kući", zapravo mislim na četvrtu udomiteljsku obitelj kojoj sam bio dodijeljen u svega godinu dana. Pomalo gladan, moji koraci su gutali metre asfalta, ostavljajući prošlost tog dana iza sebe. Ljudi koji su prolazili kraj mene – ni tada nisu postojali. Ja sam imao svoj svijet. Bio sam svoj prijatelj i neprijatelj. Ja sam bio već tada onaj koji me najbolje razumio, najbolje sam se savjetovao. Bio sam jedini koji je uvijek imao vremena za mene i za moje fantazije, za pitanja koja nikad nisu završavala, za šale koje smo jedino ja i ja razumjeli. Ooo, kako sam se znao nasmijati svojim šalama. I kako sam si, i tako mlad, bio dobar sugovornik.</p>
+        </div>
+        <div class="share-buttons">
+            <button onclick="likeContent('numbPart1')"><i class="fas fa-heart"></i> Like (<span id="likesNumbPart1">0</span>)</button>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://yourwebsite.com/numb-part1" target="_blank" class="facebook"><i class="fab fa-facebook-f"></i> Podijeli</a>
+            <a href="https://twitter.com/intent/tweet?url=https://yourwebsite.com/numb-part1&text=Pročitajte NUMB Part 1 - Autobiografska ispovijest bez filtra!" target="_blank" class="twitter"><i class="fab fa-twitter"></i> Tweetaj</a>
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://yourwebsite.com/numb-part1&title=NUMB%20Part%201&summary=Autobiografska%20ispovijest%20bez%20filtra" target="_blank" class="linkedin"><i class="fab fa-linkedin-in"></i> Podijeli</a>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📘 NUMB PART 2</h2>
+        <small>“Nastavak priče”</small>
+        <div class="toggle-content" id="numbPart2">
+            <h3>Poglavlje 2</h3>
+            <p>I on je napravio štetu, ali nije bolio. Kao ni klompa. „Neću te više pitati. Ustani i gledaj me u oči. “ Naravno da sam ustao. Učinio bih to i da to nije bila zapovijed. I dalje sam bio nijem. Nefokusiranog pogleda. Uslijedio je još jedan, slabiji šamar. Nakon kojeg je otišla u kuhinju oprati dlan koji je bio krvav. Tada sam shvatio da mi teče krv iz nosa, te da mi je kratka majica na prsima bila natopljena krvlju. Nastavio sam stajati, i dalje s torbom na leđima, očekujući nastavak – koji ovog puta nije uslijedio. „Skidaj torbu i na dvorište. Oprat se. Sve ostavi vani. Takav mi nećeš u kuću. “ – rekla je. Konačno sam osjetio olakšanje. Teret torbe više nije bio na žicama koje su me prilično nažuljale. Izašao sam van na dvorište – i dalje je dan bio sunčan i topao. Djeca iz još tri dvorišna stana igrala su se na dvorištu školice. Ponio sam i torbu van, tek da vidim nije li i ona slučajno krvava – jer ako je, i ako je ostavim negdje gdje će napraviti mrlju, naravno da slijedi nova kazna. Ispred našeg stana nalazio se stari seoski bunar, na kojeg je bila montirana ručna pumpa za vodu. Svukao sam se. Zvuk veša natopljenog krvlju asocirao me na zvuk mokrog ručnika koji padne na tvrdu podlogu. Djeca su me gledala, ali ja to nisam primjećivao. Par puta sam napumpao pumpu i brže dok voda nije prestala teći. Rukama ju nanosio na sebe, ali nikako da stignem uzeti više vode jer kad prestaneš pumpati, voda prestaje curiti. Dok sam skupljao zadnje tanke mlazove vode, ona je odjednom potekla. Jedna od djevojčica iz dvorišta je odlučila pomoći. Iako je bilo teško pumpati vodu čak i odraslom čovjeku, bila je ustrajna. Nije obraćala pažnju na to što sam gol. Nekako je osjećala da je bolje ništa ne pitati. (4. Dio) Opraviši se, ostao sam stajati kraj pumpe jer nisam dobio ručnik. A mokar ući u tu kuću bilo bi ludost. Djevojčica je očito shvatila moj problem i uskoro se pojavila s najčišćim ručnikom na svijetu. „Ne mogu to uzet, “ rekao sam joj jer je po mom mokrom tijelu još curila krv iz razbijene arkade i nosa. U drugoj ruci imala je neke kratke hlače i rekla je: „Uzmi, obuci se, neću gledat. “ Obukao sam hlače, a ona je smočila ručnik i lagano, tapkajući vlažnom, mekanom i mirisnom tkaninom, skupljala krv s moga lica – nježno i brižnije od bilo koje liječnice. Sjedili smo zajedno na stepenicama bunara u tišini, ne razgovarajući, možda i sat vremena. „Konju, ulazi unutra! “ – zagrmila je moja skrbnica. Bez riječi sam ustao i ušao. „Hoćeš da sutra sjedimo još malo? “ – upitala je djevojčica. Kimnuo sam glavom i izgubio se u realnosti tog poslijepodneva. Tada mi je rečeno da joj nedostaju dvije kutije cigareta i da sam ja jedini koji ih je mogao uzeti. „Neću te tući, ne boj se, “ rekla je, „ali hoću da vratiš cigarete. Ništa mi ne govori. Samo idi gdje si ih sakrio i vrati ih. Mislim da ti ne moram reć da se bez njih nemoj vraćat. “ Znao sam koje cigarete puši – bile su to „Filter 57“. Znao sam to jer sam joj ih ja svaki dan kupovao. Hodajući gradom, uhvatio sam sebe u razmišljanju gdje bi te cigarete mogle biti. Skenirao sam pogledom sve oko sebe ne bih li se nekim čudom pojavile dvije kutije „Filtera 57“. Tražio sam po travi uz rubove ceste, po parkovima i oko kioska gdje sam joj ih inače kupovao – ali bez rezultata. Jer – sjetio sam se – nisam ih ni uzeo. Polako se spuštao sumrak i ja sam već vjerojatno satima šetao oko kioska. Očito je prodavačici već bilo dosta i vjerojatno je mislila kako mala bitanga pokušava ukrasti neki paketić žvaka, te je izašla van da bi me potjerala. Moja groteskna pojava ju je očito šokirala jer je krenula nešto reći – i nije. Umjesto toga čučnula je kraj mene, iz pregače izvadila papirnatu maramicu, i tada sam prvi put u životu osjetio nešto što sam mislio da je najbliže nekoj majčinskoj ljubavi. Izvukla je istinu iz mene, ponudivši mi sok na slamčicu, slušajući zašto sam tu gdje jesam, takav kakav jesam. Krvavim rupčićem kojim me čistila brisala je i svoje suze. Sjedio sam u tom kiosku dok je pao mrak. Gospođa je pripremala zatvaranje i razumio sam da je vrijeme da krenem. Izašao sam van još držeći u ruci prazni tetrapak soka i uputio se negdje – bez cilja – ravno, pa gdje završim. Danas kad se toga sjetim, ponekad pomislim da je ta dobra žena napravila ogromnu grešku – pokazavši mi što je ljubav, empatija, i što zapravo znači biti ljudsko biće. To je bilo prvi put u životu da sam osjetio ono što zovemo „knedla u grlu“. Polako sam hodao na rubu plača, iako nisam razumio zašto – pobogu, sad hoću plakati? Popio sam sok, nitko me ne tuče, ne prijeti mi neka neposredna opasnost – ali suze su protiv moje volje krenule i curile bez plakanja. (5. Dio) Toliko su tekle da više nisam mogao jasno ni vidjeti svijet ispred sebe. Brisao sam oči dlanovima, a one bi se još brže napunile. Suze su se slijevale niz lice, miješajući se sa balama koje su isto tako počele curiti – i sad sam imao dva problema. Upotrijebio sam i svoju majicu brišući lice. Tapkanje nogu iza mene. Pogledavši, vidio sam da netko trči. Ali proklete suze opet pune oči. Pomaknuo sam se u stranu da bi maratonac mogao proći – ali se zaustavio ispred mene. Sad već licem uz lice – shvatio sam da je to žena koja me saslušala. Opet je čučnula uz mene, pa zatim i klekla. Vjerujem da su ju koljena boljela od toga jer je nosila kratku haljinu, i golim koljenima je bila na grubom asfaltu. Opet mi je obrisala nešto s lica – možda suze, možda krv – nije ni bitno. I povukla me u svoj zagrljaj. To je osjećaj koji do tada nisam poznavao. I opet te proklete suze. I sline iz nosa – namakale su tkaninu njene haljine na prsima. Kad sam ju uspio pogledati, shvatio sam da su i njene oči pune suza. I lice joj je bilo mokro – skoro kao i moje. Zagrlila me još jednom, snažno – ali u tom snažnom zagrljaju mi je bilo kao nikad prije i nikad poslije u životu. Kao da bi se tako trebao osjećati svaki tren svoga života. Kao da je to nešto na što imam pravo. Počela je kroz suze govoriti: „Oprosti. Oprosti mi, molim te. “ U tom trenu nisam znao o čemu govori. I zašto se sad ona meni ispričava. Sve što je lijepo – kratko traje. Tako je morao doći i trenutak kad me mora pustiti. Jer nitko nikad nije bio zagrljen zauvijek. Na rastanku, brišući i moje i svoje suze, dala mi je dvije kutije „Filtera 57“ i neku količinu novaca. Poljubila me u obraz i rekla da se čuvam. I da je ona uvijek tu za mene. Otišli smo te večeri svako svojim putem. I naši putevi se nisu više nikad susreli. Bilo je već kasno u noć. Jer odjednom – nije bilo nikoga. Automobili su se sa stotine reducirali na dva-tri. Čak su se i zvuci mojih bosih nogu čuli u gluhoj noćnoj tišini. Miris proljeća je i tu noć lebdio zrakom. Želio sam da noć potraje – zauvijek. Nisam imao ništa protiv hodanja u nepoznato. Zauvijek. Bilo je lijepo. Vodio sam neke od najzanimljivijih razgovora sa sobom te noći. Uživao u društvu nekoga kome sam tada još vjerovao. Nekoga za koga sam u potpunosti vjerovao da me nikad neće povrijediti. U povijesti svega – svako putovanje koje je započeto je i završilo. Pa tako i ovo. Lutajući tako pustim ulicama, našao sam se pred svojim dvorištem. I ušao sam, znajući da sam napravio što mi je rečeno – i da za to nema kazne. Tako da sam razmišljao kako ću možda dobiti i večeru. Ali ako i ne, bar ću na miru moći otići spavati. (6. Dio) Ušao sam. Baba je standardno bila usidrena na kauču ispred televizora. Ne ustajući, ovaj puta me pogledala: „Nisi ti baš nešto ni žurio, jel? ! Gdje si do sad? Jel imaš ti pojma, idiote balavi, koliko je sati? Ja se živciram gdje si! Jel ti se neki kurac dogodio? A on mangup luta… joj, joj, joj…“ Zastenjala je ustajući s iscrpljenog kauča. „I gdje su? “ – upitala je. Iz džepova kratkih hlača koje mi je donirala moja lijepa susjeda, i sada već najbolja prijateljica, izvadio sam cigarete i stavio ih na istrošeni žuti plastični stolnjak, na kojem je bilo tragova noža – vjerojatno za svaku šnitu kruha ikad odrezanu u toj kući. Na sredini stolnjaka bila je nagorena mrlja i tragovi skupljene plastike – jer je netko, u nekom trenutku, tamo spustio vrući lonac krumpir-paprikaša. Na rubu stola nalazila se standardno puna pepeljara, a do nje džezva friško kuhane kave.</p>
+
+            <h3>Poglavlje 3</h3>
+            <p>U ovo vrijeme bi joj znao dolaziti povremeno – tako se to valjda kaže – prijatelj. Radio je kao portir negdje, i u ovako neke gluhe sate bi ponekad navraćao. I kao svaki prijatelj te vrste, imao neku vrstu seksualnog odnosa s njom. Bio sam mlad i nisam ja to previše doživljavao. Znao sam, generalno, što je to – taj seks. I da to odrasli rade kad su sami. Znao sam još i da to rade muški, a žene leže kao strunjače većinom – i boli ih briga. Jako puno u to vrijeme sam naučio od babinog prijatelja – osluškujući ih. Jer sam već tada razvio problem sa spavanjem. A od babe sam naučio da „to ne ide u usta“. Što je to točno – to sam saznao puno kasnije. Ali u to vrijeme sam često sa sobom raspravljao i vodio debate o tome što bi oni to imali po noći u kuhinji „a da ne ide u usta“. I loš da je taj prijatelj često znao promašiti neku rupu – jer ona iz nekog razloga jauknula, počela psovati i onda bi znala reći: „U drugu rupu rekli smo tako. “ Uglavnom, spustio sam cigarete na stol uz pepeljaru – i po tonu kojim me dočekala znao sam da večere očito neće biti. Ali sam se još nadao barem da ću čuti: „Mrš u krevet. “ Glava mi je pulsirala. Nije baš ni boljela toliko – koliko me zatezala koža oko oka. A i malo sam manje mogao vidjeti na lijevo oko. Ali ovu noć – definitivno sam mogao spavati. A napokon sam i želio You said: (7. Dio) „I što da ja sad radim s tobom? Kradeš, lažeš, lutaš do u sitne sate. Ja znam, rekli su mi – i mama i tata, pa čak i baba – bili su takvi. Pa normalno, kakav možeš i biti. “ „Ovako. .. Jel vidiš ove dvije kutije? Sad ćeš fino otvorit jednu kutiju i lijepo ćeš mi pokazati što si točno htio napraviti s njima. Izvoli, sjedi. Evo i upaljač. Sad će doći i moj prijatelj, pa ćeš fino s nama popiti kavu i ispričati što se dogodilo. “ „Ajde, sjedaj. Što čekaš? Zapali – ne moraš ti njega čekat. “ Sjeo sam za stol. Stavih cigaretu u usta. Jeftinom upaljaču je trebalo više pokušaja da upali. „Ajde, vuci! Vidiš da gori“, rekla je nervozno. Cigareta se upalila. Počeo sam pućkati. Dim nije bio fin, ali nije to bilo ništa strašno. Konačno, pomislio sam – iako nisam očekivao kaznu, ipak sam je dobio. Ali ona nema pojma da meni ovo i nije tako teško. „E pa Igore, pa čovjek kad puši, voli i kavu popiti“, rekla je i već uzela šalicu kave i nasipala mi je. Miris turske kave mi se sviđao. Te opet pomislih: opet promašaj. Pa ne sjećam se da sam ikad doživio dvije blage kazne zaredom. „A pravi muškarac voli i rakijicu popiti uz kavu, toliko znam“, rekla je te dodala: „Sad ću ja, ima u frižideru dobre hladne. “ Pućkao sam cigaretu i povremeno pogledavao televizor. Na programu su prikazivali reprizu nekog domaćeg filma – o nekim ljudima u nekom starom autobusu koji vozi po nekom zemljanom putu. (8. Dio) Baba se vratila s tri čašice i bocom rakije. Natočila je sve tri, objašnjavajući: „On će sad. A ako mi popijemo dok on ne dođe – drmnut ćemo po jednu, bar na brzinu, s njim. “ Cigareta je dogorjela. Ugasiih je u pepeljaru u kojoj sam jedva našao mjesta. „Pa ti si popušio, a kavu i rakiju još nisi ni probao. Ajde još jedna cigara i drmni rakiju i kavu i spavanje. Ali ne pućkati kao prošlu! Ti misliš da ja nisam primijetila? Cigarete su skupe i one se puše. Moraš ju kao zrak uvući u pluća – inače je to samo bačeni novac. “ Kad sam povukao prvi dim Filtera 57 po njenim pravilima, ogromna količina gustog dima po prvi je puta pojurila prema mojim plućima. Zakašljao sam se i dim mi je počeo izlaziti na nos i usta, skupa sa slinama i balama. Kašalj je bio nepodnošljivo jak. Dim mi je grebao grlo, a pluća su me pekla. „Drmni gutljaj rakije, to će te smirit“, rekla je i stavila mi čašu u ruku. Ja i da sam htio – nisam je mogao sam uzeti. Toliko sam se napinjao i tresao od kašlja da bi to bila nemoguća misija. Nagnuo sam cijelu čašu rakije, gutajući je kao vodu. Mislio sam da će hladna tekućina ublažiti osjećaj žarenja, ali rakija je udarila svom svojom sirovom žestinom, parajući mi grlo i pluća. Kašalj je ponovno došao – automatska reakcija. No ovaj put nije bio toliko dug i jak. „Tako! “, rekla je, smijući se. Na filmu su glumci plesali kolo, jedan od njih je pio rakiju iz flaše i svi su izgledali sretni. „Ajde sad drugi dim“, zapovjedila je. Drugi dim je bio skoro isti kao prvi. I treći. Nakon druge rakije, još uvijek je bilo odvratno – ali podnošljivo. „Ti si ko neka pička. Toliko kašlješ, a ja kao žensko – pa ne kašljem“, rekla je. „Ali slušaj, ne puše svi cigarete. Ako ju ne možeš pušit – ugasi je“, rekla je. Istog trena to sam i učinio. I po prvi puta u životu te noći – osjetio sam djelovanje alkohola. Neću reći da mi se sviđalo, ali ni ne sjećam se da mi se nije sviđalo. „Vidiš“, nastavila je, „duhan se može i žvakat. Jesi htio žvakat cigarete koje si mi ukrao ili si ih htio pušit? “ pitala je. S obzirom na to koliko sam kašljao i da je to pušenje bilo žestoko, pomislio sam da ju još i živciram. Odgovorio sam – sretan i pijan – da sam ih htio žvakat. Kao kauboji. I žvakao sam. Sve osim papira i filtera. Žvakao sam i žvakao, zalijevajući kavom – koja je, iako gorka, ipak bila još najbolja od svega što sam dobio otkako sam došao. Uz večeru sam dobio još jednu rakiju. Na stolu su ostale dvije čitave cigarete. I jedno četiri u mojim ustima – kad su se otvorila vrata. Iz mraka je izronio „prijatelj“.</p>
+            <p>(9. Dio) „Što je ovo što radite vas dvoje? “ počeo je. „Ma pusti“, odgovorila je baba. „Imala sam u ladici dvije kutije cigareta koje si ostavio kod mene za kad ti pofali na poslu, i govno me pokrade! Kaže htio je žvakat, pa evo – neka žvaće i ide spavat. “ „A rakija? Kava? “ – upita portir. „Ma de, nemoj me još i ti jebat. Danas je bio dan“, odgovori ona. „Ženska glavo, pa ja sam odnio te cigarete još prošli tjedan! I kako si sad pomislila da ih je on ukrao? Koliko puta sam uzeo i tvoje, i zaboravio ti reć? Ni jednom ga nisi pitala je l’ ih je uopće vidio! “ Okrenula se prema meni i procijedila kroz zube: „Mrš! Mrš spavat! Što čekaš? “ Na televizoru su, u filmu, neki siromašni dečki svirali harmoniku i neki češalj, držeći komad pečenog mesa u ustima. Gledao sam to, gladan, ali i pijan. I nije mi bilo dobro. Nekako sam se dokopao kreveta. Ne, nisam zaspao. Soba se vrtila oko mene. U početku samo kad bih zatvorio oči. Kasnije i kad su bile otvorene. Noć je prošla u nekom bunilu koje ne znam koliko je trajalo – ali završilo je. Jer, na kraju krajeva, sve kad-tad završi.</p>
+
+            <p>Misao mi prekine vibracija mobitela na parketu, skrenem pogled na display-u ime Megan, uvijek je imala osjećaj kad nisam dobro ili kad mi slijedi nešto ne baš najbolje, čak i kad je samo potreban netko iako ja to još ne znam, ili znam, ali je to moguće kronično stanje koje je dio svakodnevice pa ga više i ne detektiram. Kao kad nekome smrdi iz usta on to ne osjeti, ali svi drugi osjete, ona je osjećala vonj moga bivanja uvijek.</p>
+            <p>Palim još jednu cigaretu, naginjem rakiju poput Fabijana Šovagovića. Mjehurići zraka koji ulaze u bocu dok rakija teče u mene su baš pravog tona za neku njegovu ulogu – zaštitni znak dobroga gutljaja. Ne želim biti pijan. Bar ne sada. Mobitel još vibrira i svijetli. Zato crtam još jednu crtu. Onda ju ipak malo podebljam – sa svojim vjernim aplikatorom koji je uz mene već godinama. Počistim urednu crtu kao da je nikad nije bilo. Ono što je ostalo na pladnju procijenim da je za još otprilike dvije crte. Uzmem sve u sebe. Jer ću svakako morati kasnije drobiti novi kamen – pa bolje odmah. I onda sam miran neko vrijeme. Mobitel sad već započinje novo vibriranje, na trosjedu u polumraku djevojka ili žena, što li je već, se okrene prema zidu i otkrije svoju stražnjicu, pogledom je popratim, ali više mi pozornosti zaokupi igra mjesečine na njenoj koži. Uzimam telefon. Da odbijem poziv? Da se javim? Nismo razgovarali godinama, bio je to gadan način za završetak veze. Opet kroz mene prođe E-mol. Nije ni ugodno, ni neugodno. Misli i osjećaji su mi zamagljeni narkoticima, umorom, problemima i alkoholom. Ali to sam još uvijek ja. I ne mogu se sakriti ni plaštom nevidljivosti Harryja Pottera – pa kako će me onda sakriti neki narkotik? E-mol je tu i kad ga još ne osjetim – čujem ga. Kao da stojim na autoputu. Čujem zvuk kamiona. Sve je bliže. Zvuk motora koji ga pokreće postaje jasniji. Pa sve glasniji. Sad već čujem kako gume škripe iznad vrelog, grubog asfalta. Neće proći dugo – osjetit ću kako tlo pod mojim nogama podrhtava. I nakon toga tek – osjetit ću kamion. Jedna sekunda prije nego što nađubrim svoj donji veš, ostavivši mi samo komadić trenutka da osjetim da sam se – usrao. Ali E-mol nije nužno kamion. Nekad je lađa. Koja te nosi na nevjerojatna mjesta. Mjesta koja nikad ne bi doživio da nisi u stanju čuti svoj E-mol. (10. Dio)</p>
+            <p>Ovaj zvuk proizvodi svemir u suradnji sa mnom. On to radi i s tobom, i s tulipanom, i s vatrom. Radi to čak i s jednostaničnim organizmima. Jer svemir je – i kao znanstvena činjenica – dio i mene i tebe. Dio je i tvog lošeg zadaha kao i mog. Dio je tvojih roditelja, vode, zraka, svakog djeteta i svega što si ikad vidio, osjetio — kao i svega što nisi. A ako si dio nečega, onda si i u interakciji s tim. Sigurno si nekad osjetio melankoliju. Tugu. Sjetu. I još cijelu paletu sličnih osjećaja. Često bez razloga, ponekad iz nepoznatih, ali najčešće iz dobro poznatih razloga koje ponekad ni sebi ne priznaješ — jer si uporno i nebrojeno puta sebi ispričao verziju neke istine u koju ti je lakše vjerovati. Ja jesam. I te osjećaje doživljavam i osjećam kao E-mol. Ove se noći E-mol polako prikrada i ulazi kroz otvoreni prozor malog stana na devetom katu Perivoja kralja Tomislava 36, skriven u povjetarcu, mirisima, noćnim zvucima, pokušavajući uhvatiti još jednu žrtvu noćas. Jer noć je vrijeme kada ima najviše utjecaja. Kada je gospodar svoje domene. Kada sav žamor, buka, gužva, distrakcije utihnu — tada on briljira. Gotovo kirurškom preciznošću pogađa tamo gdje ću ga najviše osjetiti. Sjedim uz otvoreni prozor, čekajući u polutami, pod slabim svjetlom noćne lampe s prljavom, jeftinom žaruljom i ružnom, neprirodnom žutom svjetlošću, koja preko sobe baca sjene praznih pivskih boca koje su joj se našle na putu. Čujem zvuk vjerojatno posljednjeg tramvaja kako se umorno vuče po starim tračnicama i tek kratak zvuk iskre davno dotrajalih električnih žica, na čiji pogon se pokušava dovući do posljednje stanice. U daljini — alarm na nečijem vozilu, koji tuli već sigurno dobrih pola sata. Da je nešto bliže, bio bi iznimno iritantan. Ali on je tamo negdje, pod nečijim prozorom, i kida živce cijelom jednom drugom kvartu. Iako će netko pomisliti da nisam baš u redu — za što me, iskreno, boli patka — ja sam ipak sretan što je tamo. I što živcira nekog drugog. Bar mi još i to neće remetiti nemir u glavi. (11. Dio)</p>
+            <p>Miris proljeća, koji nam nije baš svima mio, uvlači mi se u nosnice nepozvan. Polako, kao štene koje ti se približava pomalo sramežljivo, pa sve slobodnije, dok ne završi uz tebe. I osjetiš njegovu toplinu, otkucaje srca, mekanu dlaku pod prstima, vlažni nosić dok te nježno nuška. I osjećaš se dobro. Možda tužno i melankolično — ali dobro. A onda je to slatko štene već zaspalo i potpuno se opustilo. I kao što to često biva — ništa ne traje vječno. Ni mir, ni sreća, ni tuga, ni melankolija, ni jedan rat, ni jedna ljubav, pa ni nesreća. Ni E-mol. Ni mir slatkog šteneta koje će, kad je opušteno, ispustiti prilično smrdljiv vjetar. Nekad će mu čak biti neugodno. Ili će se probuditi sam od sebe i pobjeći od vlastitog smrada, ostavljajući ga da lebdi oko tebe. Ulazi ti u usta, nosnice, kosu i stvara auru prve glavne čakre. Tako i ovaj večerašnji E-mol, koji kao i inače počinje kao psić, mene većinom okupa mirisom korijenske čakre. Ispijam rakiju jednim odlučnim gutljajem, palim još jednu cigaretu. Dok žestoki alkohol još klizi niz grlo, povlačim prvi dim i osjećam kako se slijeva i zaustavlja u želucu. Žestoka aroma izlazi mi i kroz nos — ili je to pak miris iz boce dok sipam sljedeću čašu. Nije ni bitno. Dok god osjećam miris, znači da je ima. Znači da još ima nade da ću zaspati. Da neću razmišljati. Sjećati se. Osjećati se. (12. Dio)</p>
+            <p>Znači da večeras imam sreće jer neću biti samo depresivan i budan — s osmijehom koji se vjerojatno ni ne nazire. S pogledom u tamu oblačne proljetne noći ispijam sljedeću čašu, ne spuštajući je na ionako pretrpani stolić za kavu. Sipam novo piće, ovaj put prst više nego do sada. Ipak je spuštam, duboko uvlačeći dim cigarete u pluća. Tako se dobro slaže s okusom rakije. U mom društvu su nerazdvojni. Jedna od rijetkih konstanti ovog čobana. Uz još neke, na koje tek dolazi red. Ili je njihovo vrijeme u rotaciji koja je započela jutros u četiri ujutro, nekim uobičajenim redoslijedom: erekcija, cigareta, kava, cigareta, deblja crta kokaina, cigareta, hladna rakija, obična crta kokaina, još jedna kava, cigareta, eksplozivna velika nužda — nakon koje, zbog upaljenih mi hemeroida, WC školjka ponekad (dobro, većinom) izgleda kao da sam u njoj imao abortus jer me silovao sam Nečastivi. Ako ste mislili da je to cijela rotacija — nemojte, molim vas, biti smiješni. Slijedi debela crta speeda, uz, naravno, cigareta koja već treba biti na dvije trećine — jer je onda okus Lucky Strikea najbolji uz metamfetamine. Rotaciji još nije kraj. Ona se samo razlikuje po par stvari: koju smjenu radim, koju smjenu radi supruga, koliko i koje vrste čarolije imam trenutno kod sebe, imam li neizbježnih obaveza i koliko sam zapravo u kurcu. Na posljetku, ali kako sam čuo da se zna reći — ne manje važno — koji je danas razlog što se moram osjećati kao izudarani deset dana stari izmet. (13. Dio)</p>
+            <p>Palim još jednu cigaretu, dolijevam piće — iako prošlu čašu još nisam ni do pola popio. Naravno, sam sebi tvrdim da se ovo malo ugrijalo pa ću ga samo malo nadoliti, jer je ova u boci, pošto je količinski ipak ima nešto više, normalno i logično malo i hladnija. Iako, isto tako, naravno, znam da lažem. I nastavim sipati do dvije trećine čaše. Vjetar vraća od prozora dim cigarete, koji izgleda kao gusta magla iznad moje glave. Ne znam koliko je sati. Pokušavam se sjetiti imam li kakvih obaveza danas. Ništa mi bitno ne pada na pamet. Zapravo, moram provjeriti koji je uopće dan. Pogledom tražim mobitel, po prostoriji koja savršeno odražava stanje moje svijesti i ima saveznike u polutami drlogu od količine raznih narkotika ni um ni vid mi nisu bistri ali pomislim nije li tako i bolje, na podu je, kraj putnih torbi koje nisu nikad raspakirane iako postojim u tom prostoru već par mjeseci. Pokušavam se sjetiti jesam li ga ostavio tamo da si kažem nešto ili mi je samo ispao kad sam drijemao duvajući trubu. Uglavnom, očito neću baš tako skoro saznati koji je dan. (14. Dio)</p>
+            <p>Svanut će, a ja ću vjerojatno i dalje biti budan, umoran, prazan i suh. Zamišljen, ako me dopadne milost. Jer u zadnje vrijeme ni misli nisu više toliko česte, kao da me i one izbjegavaju. A možda su i one odlučile da sam već odavno prestao zasluživati njihovu prisutnost. Nekad sam znao misliti o svemu. O svemu. Doslovno. Pokušavao shvatiti ljude, događaje, uzroke i posljedice. Povezivao sve sa svime. Uspostavljao logiku kaosa. Sad je ostao samo kaos. Bez logike. Bez uzroka. Bez razloga. Sve se samo događa. Bez reda i bez kontrole. Poput rijeke koja je pronašla novo korito, i sad nosi sve pred sobom, bez obzira na to je li riječ o granju, blatu, uspomenama ili cijelom čovjeku. Nosi i mene. A ja više ni ne pokušavam plivati. Nema smisla. (15. Dio) I možda je upravo u tome stvar. U prihvaćanju da nema smisla. Možda nas to oslobodi. Kad prestaneš tražiti smisao, prestaneš biti razočaran što ga nema. Kad prestaneš očekivati, prestaneš biti povrijeđen. Kad prestaneš plivati — više se ne utapaš, nego te voda nosi. Pitanje je samo kamo. Ponekad se zapitam — da mogu opet početi, bih li išta promijenio? Da mogu ući u vlastiti dječji um, reći mu nešto, upozoriti ga, pružiti mu ruku… Bih li to učinio? Ili bih se samo pogledao i kimnuo glavom, znajući da je morao proći sve što je prošao… da bi postao ono što danas piše ove riječi? Ne znam. Iskreno, ne znam. Ali znam da ovaj tekst — nije napisao netko slab. Niti netko nevažan. Niti netko koga treba zaboraviti. I ako već ništa drugo, možda to vrijedi zapisati. Ako ne zbog mene, onda zbog tebe. Koji čitaš. Koji prepoznaješ. Koji znaš. Koji si možda i sam — dio istog E-mola. Noćas se osjećam opasno, opasno po sebe opasniji od opasnosti u kojoj se nalazim jer ova noć ima težinu ruske proze s kvalitetom jeftinog amaterskog pornića koji u sebi sadrži opasni virus koji se neprimjetno širi sistemom djeluje iz neočekivanih kuteva zamagljenog uma. Oblaci se na tren raziđoše i mjesečeva svijetlost da novu nijansu prostoriji, romantično depresivnu i sve što vidim i osjetim priziva neka teška sjećanja koja me čine ovime što sam postao ne ulazim u to jel to dobro ili loše ali naginjem mišlju da nisam baš naj bolja osoba na svijetu nisam možda čak ni dobra osoba često znam da sam prilično sebičan nerealan bijesan stalno sam bijesan i kad se smijem što je rijetkost ipak osijećam bijes koji samo čeka da skoči pokida me kao jeftinu ambalažu i uništi sve oko sebe. Ta sjećanja me stavljaju na križ koji nosim sa sobom od kad znam za sebe svako malo se pribijam na taj križ pa potaknut nečim drugim silazim s križa nastavljam putovanje noseći ga na leđima te se opet pribijam na njega svaki puta koristim sve veće klinove za dlanove i stopala jer me usidre bolje nego oni koje sam zadnji puta koristio to mi je potrebno jer me drže na mjestu na mjestu koje mi pruža malo mira i da bole dok ih zakucavam dok se smijem i rugam samog sebe očito sam dobrim djelom sadista što možda i nije toliko loše da nisam mogao bi zaista neku štetu napraviti. Iako nije vruće od speeda teško dolazim do zraka tjeskoban sam nervozan ispod ruku mi znoj natapa pamučnu kratku majicu ali i opet posežem za pladnjem pod nogama povlačeći još jednu urednu momačku crtu kokaina krv mi brzinom munje pojuri u glavu i opet sam dobar. Sad jasnije razmišljam cigareta je dogorijela u pepeljari pa palim drugu bacam pogled na praznu bocu. Rakije više nema u hladnjaku imam bocu gina koji bi rado popio da mi se da ustati i otići po nju ali mrzi me mješati tonik jer to je još samo jedan posao ipak ustajem i otvaram vrata hladnjaka uzimam bocu koja još nije otvorena uzimam tonik i napravim si veliko piće koje do pola odmah ispijem te u istu čašu dolijem još. Vreata hladnjaka su još otvorena i svijetlost mi skrene pogled prema krevetu otkrivši žensku nogu kako mirno leži do pola pokrivenu pokrivačem, zaboravio sam da je tu ona spava možda i sanja i drago mi je što bar netko može pogledom popratim izazovne linije ženskog tijela kako se ocrtavaju ispod pokrivača i iako sam povukao toliko narkotika da sam impotentan bar trtenutno osjetim žudnju strast punu erotskim osjećajem bljeskovi ne tako davnog sexa koji je bio dug i iscrpljujuć jer naravno da sam uzeo viagru koja mi s vremena na vrijeme u ovakvim fazama treba ako poželim i masturbirat, pa čak i pišat kako često u šali znam reći. No to nije uvijek bio slučaj, nije ni sada, postoje faze u tom nekom mojem životu, one su jasno vidljive čak i potpunom prolazniku koji bi prohujao kraj mene sekund kasnije ne bi se ni sjećao lica ali bi sa sigurnošću mogao naslutiti fazu u kojoj je osoba kraj koje je prošao bila. Imao sam tužne ili bolje reći depresivne faze, zapravo bolje reći imao sam i tužne i depresivne faze, bilo je uspješnih i neuspješnih faza te onih koje su ispunjene emocijama te one tupe letargične faze zdravih, ljubavnih, smiješnih. Umoran sam ali ne s željom za krevetom, ljenčarenjem, pušenjem trave dok me THC mrena ne odvoji od svijeta. Umoran sam od statiranja u svom filmu, od okretanja leđa redatelju i kameri, umoran od sporedne uloge nevidljivog prolaznika. Ali ne vidim da će se to mijenjati. Pucketanje kristala kokaina mi potjera krv venama. Osjećam kako sam od iščekivanja kratkog daha kao da dišem kroz prljavu krpu koja mi je preko lica dok život sipa litre i litre vode na nju. Moram se suzdržati. Duboko udahnem, stavivši zarolanih deset eura u nos, primičući se polako bijelom kristalnom horizontu, naglo se povučem, izdahnem i prekorim se.</p>
+            <p>Pa i budala zna da ne udiše zrak kad ideš šmrkat. Kakva amaterska greška, " Kakav danak neiskustvu, kakva greška mladog kengura" 1. Pa koji sam ja idiot ovako zgažen mogao sam sve otpuhnuti u nepovrat na prljavi pod, iako ne mogu garantirati da ga ne bi sakupio i sa starim mrvicama, mravima, prašinom, kosom i jebenim trulim truplima žohara usisao u lijevu nosnicu i "boli me kita", "boli me uho za sve je, a imam svoje sne i moj Walter je pod jastukom" 2. Ponovo opreznije, ali ne manje halapljivo, usisam crtu, pa još jednu. Komadi skamenjenog bijelog praha mi padaju iz nosnice, nisam mislio nikad da će ovo biti moja budućnost. Budućnost koja naizgled nema budućnost, kao što je i moja prošlost neumorno sugerirala, ali kvragu, još uvijek sam tu, još uvijek patim i preživljavam, još uvijek ranjen izbliza pojedinačnim mecima skoro svakoga koga sam upoznao. I sve te rane još cure, neke su svježe dok druge nose nepopravljivu štetu i smrad života koji ne nestaje samo tako, ne nestaje nikako kao gadna upala sinusa gdje god se okrenem smrad je tu, gdje god pobjegnem nosim ga sa sobom i kad me više ne bude bit će još samo intenzivniji, žar cigarete koju ne znam kad sam zapalio obasja sobu, zakašljem se od previše speeda u nosnicama i ždrijelu, skoro povraćam, koža mi se naježi i to je dobar znak, znači da speed radi, vidim to i po tri prazne kutije cigareta na podu. Svakim trenom soba izgleda sve gore poput mene samog. Pogledam žensko tijelo na krevetu, ovaj puta su razotkrivene i bujne grudi na koje bi nekad dobio instant erekciju ali trenutno i već dugo se to ne događa i nije me briga, nije bitno ionako ševim samo da bi sam sebi dokazao da sam još živ, da još ima nečeg ljudskog u meni, da nisam nevidljiv i možda nekome ostanem bar u nekom maglovitom sjećanju.</p>
+            <p>U daljini alarm na autu još uvijek para noćni spokoj. Ionako ne mogu spavati. Da znam voditi ljubav legao bih kraj te nepoznate žene, ali to sam davno zaboravio. Da mogu jebati, isto bih bio kraj nje, ali ni to već odavno nije opcija, naravno svjestan sam da imam problem, zapravo ništa drugo ni nemam, možda nisam nikad ni imao.</p>
+            <p>Patrolna policijska kola su upravo parkirala pred mojom zgradom, čuje se zvuk motorole i sam plašljiv, ali u tom trenu me prođu trnci, zapravo prođu svaki puta kad ih vidim, toliko vožnji u patrolnim automobilima, maricama, pravosudnim vozilima nikoga ne bi ostavili ravnodušnim, rijetka su bila putovanja vozilom koja su putovala prema boljoj budućnosti ili bar prema nečemu što sam mislio da je bolja budućnost. Sjećam se svog prvog puta dolaska u grad u kojem sam sada, nebitno koji je grad jer nakon nekog vremena svi izgledaju isto i ni jedan nije sigurno mjesto. Vožnja autom je bila kratka koliko sam mogao ocjeniti, možda jedan školski sat otprilike. Lice me je još boljelo, ali ne kao tjeme koje je bilo izudarano. Na odrazu u staklu automobila vidio sam kako mi čuperci strše i komade kose koji nedostaju. Češljanje nije bila opcija jer se kosa opet s krvlju zalijepila za otvorene rane. U tišini sam gledao kako grad prolazi kraj mene u neizvjesnosti, ali pun nade da će ovaj smještaj biti ipak malo bolji. Vozač i njegova prijateljica s kojom je vjerovatno radio vozili su me na slobodu. Nakon dugo dugo vremena zaboravljeni grč na ustima se oteo, napravio nešto što mi je bilo poznato.</p>
+            <p>Bio je to smijeh, osmjeh. Auto je stao i s pomalo nervoze u želucu kao i kad sam selio u sve te udomiteljske obitelji.</p>
+            <p>Zapravo prilično jače jer ovo je bilo nešto s televizije, kao onaj dom za vješanje. A to je kako sam vjerovao samo stepenica do kaznionice. Ne zatvora gdje si tek zatvoren nego kaznionica i tamo bivaš kažnjen. Muškarac iz auta je pozvonio te smo čekali, njih dvoje su dogovarali da idu negdje van večeras, što god to značilo, dok ih u dogovoru nije prekinula starija gospođa u ljubičastoj kuti koja je otvarala vrata.</p>
+            <p>Izvolite?</p>
+            <p>Jimi predstavi se čovjek i nastavi:</p>
+            <p>Dovodimo vam novog štićenika. Mi smo iz socijalne službe Beli Manastir. Ovo su papiri, ovo je malac i problem vaš. Stavi jednu ruku u džep a drugu preko prijateljice koja se hihotala kao curice mojih godina kad pričaju nešto bezobrazno o nekome. Žena me uvela u hodnik, ušla na kratko u kancelariju, ovaj puta u ruci noseći veliku šibu.</p>
+            <p>Zamnom, reče kratko, te me odvede na drugi kat. Svugdje oko mene je bilo puno djece kao u školi, iako se činilo kao puno više jer sam bio novi i svi su se okupljali oko mene, nisu mogli znati tko sam jer se sve brzo odigralo. Ali ne bi bilo ni bitno jer kad si novi ne zanimaš njih ti, nego šta imaš od stvari, možda dobre patike ili majicu, možda tranzistor ili slatkiša. Nažalost ništa od toga nisam imao niti sad niti ikad tako da sam dobivao samo podsmjehe, dobru količinu srednjih prstiju i par obećanja da će mi netko otkinuti glavu. U daljini kroz buku začuo sam kako netko viče "ovaj mi danas pere čarape". I sve to, a još nisam ni došao do svoje sobe i kreveta. Stiskao sam o prsa običnu pohabanu najlonsku vrećicu u kojoj je bila tek jedna majica i kratke hlače. Pitajući se je li to što sam tražio da me se stavi u dom bila dobra ideja. Bila ili ne, donesena je.</p>
+            <p>Uveden sam u sobu, bilo je tri kreveta na kat, ja sam popunjavao šesto mjesto na donjem lijevom krevetu sa zapišanim madracem koji se raspadao i jastukom bez navlake sa toliko fleka različitih boja da se nije moglo vidjet kakve je nekad bio boje.</p>
+            <p>Dečki su me gledali, ali nastavili sa svojim pričama. "Ovo ti je ormar, sad će večera, vešeraj ne radi, sutra ćeš dobit pidžamu, gaće i šta ti treba", otišla je i ostavila me s mojim novim cimerima.</p>
+            <p>"Nemaš ništa?" Upita najveći. Samo sam odmahnuo glavom. "Daka daj mu jedne čarape."</p>
+            <p>"Sanele majicu mu daj, vidi na šta liči, ostalo ćemo skupiti od svih prije spavanja." Netko je vikao "večera" i svi su pohrlili niz stepenice trčeći, pa čak uhvativši zalet i skijali u patikama po rubovima gazišta, nešto što je jako zanimljivo i jako sam to brzo svladao iako sam jednom precijenio svoje sposobnosti pao i slomio trtičnu kost i danas se naježim kad se sjetim kako je boljelo i smijem se kako sam imao naviku trčati u krug kad god bi se jače udario. Spustio sam se skupa sa gomilom djece u trpezariju koja je bila baš kao iz filmova. Dečki iz moje spavaone su me povukli za svoj stol, nisam još ništa pričao, nisam vidio svrhu tome. Večera je bila kruh namazan nečim što možda podsjeća na margarin i šalica čaja, žamor u trpezaruji je bio glasan, svi su imali neke teme, tiho sam ih slušao. Došlo je i vrijeme spavanja, neki su još gledali televizor u zajedničkoj prostoriji, neki su pušili, neki su se švercali na ženski odjel koji je bio kat ispod nas i po mraku zaključan. Pojavio se glas koje je vikao kako ću prat čarape noćas. "Šta gledaš žuti? Drži ovo i da se blista za deset minuta ili ću te nahraniti njima. Mrš u kupatilo", siknuo je kroz zube, te dreknuo "pokažite mu kupatilo ili imam čarapa dosta za sve".</p>
+            <p>Naravno, nisu mi to bile prve čarape koje sam prao ručno i riješio sam tjedne naslage ne znam čega na čarapama za pet minuta.</p>
+            <p>Konačno krevet.</p>
+            <p>Konačno mrak.</p>
+            <p>I konačno sam zaspao.</p>
+            <p>Nisam osjetio ni smrad madraca i jastuka ni oštru grubu deku, samo sam utonuo u san nakon dugo vremena bez batina. San nije dugo trajao jer je netko upalio svjetlo i gomila dečki je uletjelo u sobu.</p>
+            <p>"Kosta, Kosta, Kosta." Skandirali su. Iz gomile je izašao Zoran Kostadinović, kao beba je ostavljen na ulici te je završio u domu.</p>
+            <p>Kosta je bio i mentalno zaostao i bilo ga je lako nagovoriti da se potuče s novim dečkom. Nisam bio spreman za tuču, bio je očito i jači od mene, a meni se jako spavalo. Uhvatio sam se za bijeli željezni krevet na kat. Kosta je pojurio i plasirao udarac u moje lice koji nije bolio, ali mi je vid počeo bježati kao zakašnjeli film. Gomila je vikala, navijala, neki i za mene, što me i ohrabrilo tako da sam odlučio plasirati nogom udarac. Kosta je uz nevjerojatno snagu zgrabio moju nogu i rastegnuo tako da mi je sada cjevanice pritiskala nos. Vjerovatno sam udario glavom o krevet i ujutro uz dreku odgajatelja "buđenje, buđenje" probudio na svom upisanom madracu i trulom jastuku. Dobro iz svega toga je bilo da od tog dana i dan danas s 45 godina mogu napraviti špagu bez ikakvih vježbi.</p>
+            <p>Kako su dani prolazili sve sam se više navikavao na rutinu života u domu i mislio sam kako sam ipak napravio dobar potez.</p>
+
+            <p>Sjećam se dok sam jednom prilikom radio kod jednog doktora niz pomoćnih poslova. Nakon otprilike par mjeseci nakon prvog izlaska iz zatvora, taj neki doktor je kupio komad zemlje u selu gdje sam u to vrijeme živio kod svoje majke iz razloga što je to bio jedan od uvjeta uvjetnog otpusta, a i zato što doslovno nisam imao gdje drugdje. Mislim kako ona nije bila baš oduševljena s tim iako nije, koliko se sjećam, nikad ništa rekla u vezi toga. Ja to tako mislim jer situacija i kuća u kojoj je živjela pa tako i kuća u kojoj sam i ja živio su bile u prilično lošem stanju. Majka je, čini mi se, živjela od neke minimalne obiteljske mirovine pokojnoga supruga ili od socijalne pomoći jer se ne sjećam točno je li suprug već umro ili nije, što mi je čudno jer je netko čak doveo u pitanje moju umiješanost u njegovu smrt, čak sam imao i neki problem s njegovim sinom koji je možda godinu dana mlađi od mene i uredno gazi očevim stopama kao etablirani alkoholičar. Zapravo, možda ni mene život nije odveo puno dalje jer se od svega što noćas imam u sebi ni ne sjećam je li čovjek bio živ ili ne, ali možda i zato što i nije dio ove priče koju si prepričavam ponovo, što znam često činiti. Uglavnom, doktor je kupovao neka imanja po selu i ja sam preko tetkinog supruga doveden da pomažem u vinogradu, vinskom podrumu, pa polako i građevinskim radovima. Nekako sam se osjećao dužan, vjerovatno vođen radnjama i zapletima brojnih filmova, da mu kažem kako kao poslodavac, iako to još nije bio ja, ja sam bio tek povremeni nadničar kod njega, ima pravo znati da sam neko vrijeme proveo u zatvoru i da sam nedavno pušten te kako planiram zaista pošteno raditi ako ima posla i kako ne bi bilo dobro da to SAZNA OD NEKOG DRUGOG, bolje je da mu to ja kažem. Što se njega očito i dojmilo te me je nakon nekog vremena prijavio kao radnika te sam prešao i na izazovnije projekte kao što su fotografija, jer je posjedovao i svoju fotografsku radnju koja je još do nedavno bila veliki posao jer nije uvijek bilo pametnih telefona kao danas, interneta. Na svoje fotografije si morao čekat nerijetko i tjednima. Proces je bio, oni koji su mojih godina sjetit će se. Uzmeš fotoaparat, jednokratni ili za nešto više novčanica pravi aparat. Slikaš film, doneseš meni, ovisno o količini posla koju imam, po fotografije dođeš u prosjeku za par dana, ali znalo je biti da imam toliko posla da ljudi čekaju fotografije i po par tjedana. U sklopu te radnje doktor je snimao VHS kamerom svatove, proslave, važne događaje, školske predstave. Tako da sam konačno imao iskustvo i nekog posla na kojem je tuširanje poslije smjene opcija, a ne nužda, isto tako osjetio sam i mogućnost da budem kreativan, ulovio bih dobar kadar kamerom i držao bih ga se, u glavi bih imao jasnu viziju kako bi predstava trebala izgledati da je namijenjena snimanju. Često bi roditelji djece bili ljuti što se nije njihovo dijete više vidjelo na snimci, ali kako da mu objasnim da mu dijete glumi drvo koje za neki dijalog uopće jebeno nije bitno i koji idiot će platiti nešto snimano iz strogo širokog kadra da se stalno vidi cijela scena. Naravno, nisam nakon toga više ni išao snimat predstave, doktor mi je rekao da su ljudi imali jake argumente, svaki roditelj je platio istu količinu novaca za kopiju trake i želi istu količinu vremena na traci za svoje dijete kao što ima i dijete koje glumi jednu od glavnih uloga u naravno uvijek razočaravajućoj predstavi koju režira ili učiteljica hrvatskog likovnog, ako ne one, onda učitelj tjelesnog ili tko god se javi. Nepotrebno je reći kako nisam imao ništa protiv toga da više ni ne pipnem kameru ako ju mogu samo staviti na nogare i upaliti. Polako je drugim poslovima i moja zainteresiranost padala, bilo je sve više dana kada bih radio poslove o kojima ništa ne znam, spavao bih na raznim devastiranim gradilištima te se očekivalo nemoguće od mene, sve češće se osjetilo kako mu za pojedine projekte nedostaje novaca te nije imao ni da mi plati doručak za vrijeme radnog vremena. U jednom trenu je zakupio stari devastirani restoran koji je nekad za vrijeme bivše Jugoslavije bio prilično posjećeno mjesto i sa razlogom. Nalazio se na samoj obali Dunava i odisalo je istinski lijepom atmosferom, ulaganje je bilo ogromno za moje poimanje, ali opet zaposleni su radnici to jest izvođači radova koji su manje-više bili pijani i posao je slabo napredovao, moj posao je bio da im kuham i ispunjavam kojekakve želje, pripremam materijal za izgradnju, tobože dokumentiram napredak obavljenih radova, a plaća je bila sve manja i sve rjeđa. Kamera koju sam koristio nekad za snimanje događaja ovaj puta je koristila za bilježenje napretka u radovima na novom restoranu. Moje nezadovoljstvo je raslo iz dana u dan ne dajući mi ni malo prostora za privatan život te sam spavao u ruševinama restorana koji je bio smješten u šumi te sam bez vrata i prozora bio izložen kako vremenskim uvjetima tako i stanovnicima šume kao što su štakori, razni glodavci i lisice koje su redovito šetale prostorom dok sam spavao. Sjećam se jednog jutra kako otvarajući oči još u polusnu, maglovito se ispred mene naziralo nešto kao pas, kako mi se vid bistrio uočio sam da to zapravo lisica sjedi kraj moga improviziranog ležaja, nedaleko kraj nje nalazila se hrpa izmeta koji je istovarila doka sam još bio na krilima sna ne znajući što se oko mene događa.</p>
+            <p>Sneno stanje se brzo pretvorilo u paniku koja je prešla u strah, a on je potakao instinkt za bježanjem te sam iskočio kroz prozorsko okno koje nije imalo prozora, prizemljio sam na kotlić pokvarene hrane koji se nalazio pod prozorom, prevrnuo ga se se sav smrdljivi sadržaj izlio i prekrio me od jačine neugodnog mirisa, počeo sam povraćat jer pobogu ni kavu još nisam popio pa nisam se ni probudio još. Podloga je bila pješčana te se i pijesak zalijepio za ostatke smrdljive smjese koja je bila po meni, još zbunjen i u polusnu nisam ni razumio što se događa, a već je dan započeo tonom koji mi se nikako nije sviđao. Tog dana sam poslom trebao ići u grad obaviti neke poslove za doktora koji se naravno smijao dobrih pet minuta nakon što sam mu ispričao što se dogodilo. Naravno kako nije bilo ni prozora ni vrata kako očekivati da će biti vode ili struje, moje kupanje je tog jutra obavio hladan Dunav, ali bar je isprao komade mesa iz kose ostavljajući mi kožu masnom koju sam istrljao pijeskom poput nomada u kojekakvim pustinjama, pa se vratio u Dunav koji me zagrlio još jedanputa svojom jutarnjom hladnoćom, nepotrebno je reći da sam taj postupak ponovio više puta no miris se naravno i dalje osjetio i tu bez sapuna nije bilo pomoći. Na kraju sam našao deterdžent za suđe te se pripomogao s njim. Obavio je posao, ali na meni ostavio miris limuna koji nisi mogao zamijeniti za ništa drugo nego deterdžent za suđe. Ipak takav otišao sam u grad i prolazivši kroz križanje ulice Republike i Županijske ulice spazio sam grupu ljudi koji su entuzijastično raspravljali o iskustvima, svi dobre volje, neki su nervozno koračali naprijed-nazad ponavljajući rečenice iznova i iznova. Pažnju mi je privukao plakat na zatamnjenom staklu na vratima zgrade koji je pozivao ljude na casting za neki televizijski program.</p>
+            <p>Bez plana programa i jasne namjere, ni danas ne znam kojom motivacijom ili silom sam otvorio vrata, prošao kraj svih ljudi kojih je vjerovatno bilo između sto ili dvjesto, uzeo sam svoj broj i čekao ne znajući i dalje zašto sam to zapravo učinio. I dalje sam gledao ljude i svi su očito nešto pripremili i vježbali pripremljeno dok sam ja čitao pamflet o ženskoj menstruaciji jer sam ga našao na stolici do moje iako to nije bilo nešto što me ikad zanimalo, bilo je nešto što će mi zaokupiti pažnju dok se moj broj ne pozove. Pročitao sam ga jednom, dva, tri, četiri puta, izašao van, zapalio cigaretu jer sam osjetio da se hodnik počeo ispunjavati mirisom deterdženta za suđe te su me neki ljudi već gledali kao izvor tog mirisa. Nikad mi nije bilo bitno nečije mišljenje, a i pušilo mi se, nitko nije napuštao svoje mjesto osim mene i svejedno sam došao na red kao i svi drugi tog dana.</p>
+        </div>
+        <div class="share-buttons">
+            <button onclick="likeContent('numbPart2')"><i class="fas fa-heart"></i> Like (<span id="likesNumbPart2">0</span>)</button>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://yourwebsite.com/numb-part2" target="_blank" class="facebook"><i class="fab fa-facebook-f"></i> Podijeli</a>
+            <a href="https://twitter.com/intent/tweet?url=https://yourwebsite.com/numb-part2&text=Pročitajte NUMB Part 2 - Nastavak autobiografske ispovijesti!" target="_blank" class="twitter"><i class="fab fa-twitter"></i> Tweetaj</a>
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://yourwebsite.com/numb-part2&title=NUMB%20Part%202&summary=Nastavak%20autobiografske%20ispovijesti%20bez%20filtra" target="_blank" class="linkedin"><i class="fab fa-linkedin-in"></i> Podijeli</a>
+        </div>
+    </div>
+
+    <div class="comments-section">
+        <h2>Komentari</h2>
+        <div class="comment-form">
+            <textarea placeholder="Napišite svoj komentar..."></textarea>
+            <input type="text" placeholder="Vaše ime" />
+            <input type="email" placeholder="Vaš email" />
+            <button onclick="submitComment()">Pošalji komentar</button>
+        </div>
+        <div class="comment-list" id="commentList">
+            <div class="comment">
+                <strong>Čitatelj 1</strong> <small>20. srpnja 2025.</small>
+                <p>Odličan i sirov tekst. Veselim se nastavku!</p>
+            </div>
+            <div class="comment">
+                <strong>Anonimni</strong> <small>19. srpnja 2025.</small>
+                <p>Duboko i potresno. Svaka čast na hrabrosti!</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Kontakt: <a href="mailto:igorsajnovic2@gmail.com">igorsajnovic2@gmail.com</a> |
+        &copy; 2025 NUMB. Sva prava zadržana.
+    </footer>
+
+    <script>
+        // Funkcija za "Like" (jednostavna, samo broji klikove)
+        function likeContent(id) {
+            const likeSpan = document.getElementById('likes' + id.charAt(0).toUpperCase() + id.slice(1));
+            let currentLikes = parseInt(likeSpan.innerText);
+            likeSpan.innerText = currentLikes + 1;
+        }
+
+        // Funkcija za simulaciju slanja komentara (ova verzija samo dodaje komentar na stranicu, ne sprema ga)
+        function submitComment() {
+            const commentTextarea = document.querySelector('.comment-form textarea');
+            const nameInput = document.querySelector('.comment-form input[type="text"]');
+            const emailInput = document.querySelector('.comment-form input[type="email"]');
+            const commentList = document.getElementById('commentList');
+
+            const commentText = commentTextarea.value.trim();
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
+
+            if (commentText === "") {
+                alert("Molimo unesite komentar.");
+                return;
+            }
+
+            const newCommentDiv = document.createElement('div');
+            newCommentDiv.classList.add('comment');
+            newCommentDiv.innerHTML = `
+                <strong>${name || 'Anonimni'}</strong> <small>${new Date().toLocaleDateString('hr-HR')}</small>
+                <p>${commentText}</p>
+            `;
+            commentList.prepend(newCommentDiv); // Dodaj novi komentar na vrh liste
+
+            // Očisti formu
+            commentTextarea.value = '';
+            nameInput.value = '';
+            emailInput.value = '';
+
+            alert("Komentar je dodan! (Napomena: Za trajno spremanje komentara bila bi potrebna baza podataka i backend sustav.)");
+        }
+    </script>
+
+</body>
+</html>
